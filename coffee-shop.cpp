@@ -1,10 +1,12 @@
 #include <iostream>
+#include <windows.h>
 using namespace std;
 //define
 const int ESPRESSO_PRICE = 1;
 const double CAPPUCCINO_PRICE = 1.5;
 const double LATTE_PRICE = 1.5;
 const int MINIMAL_PAYMENT = 1;
+
 // to main
 int cupsAmount = 7; 
 double balance = 0;
@@ -18,6 +20,7 @@ void showCoinsVariants();
 int showPaymentMenu();
 void orderCoffee(double, string);
 void checkBalance(double);
+int showProgressBar();
 
 int main()
 {
@@ -30,7 +33,7 @@ int loadMenu()
  
    while (true)
    {
-      // to main
+     // to main
      showMenuItems();
      cout << "Your choice? ";
      cin >> userChoice;
@@ -49,6 +52,7 @@ int loadMenu()
      case 4:
         orderCoffee(LATTE_PRICE, "latte");
         break;
+     //case 5 NIKITA'S PART   
      default:
       cout << "Input [1..5], please" << endl  << endl;
       continue;
@@ -172,11 +176,15 @@ void checkBalance(double price, string coffee)
    {
       balance -= price;
       cupsAmount--;
-      cout << "progress" << endl; // ADD PROGRESS FUNCTION
-     
+      showProgressBar();
+      cout << "Here is the best " << coffee << " in the City. Please, help yourself!" << endl;
+      std::cout << R"(
+         (   
+          )
+        c[]  
+        )" << '\n';
       while (true)
       {
-         cout << "Here is the best " << coffee << " in the City. Please, help yourself!" << endl;
          cout << "Press 0 if Customer has taken his cup of coffee" << endl; 
          cout << "Your choice? ";
          cin >> userChoice;
@@ -186,7 +194,6 @@ void checkBalance(double price, string coffee)
             loadMenu();
             break;
          default:
-            cout << "Press 0 if Customer has taken his cup of coffee" << endl; 
             continue;
          }
       }
@@ -204,4 +211,16 @@ void orderCoffee(double price, string coffee)
    } else {
       loadServiceOnly();
    }
+}
+
+int showProgressBar()
+{
+  int barLength = 20;
+   cout << "[";     
+   for (int i = 0; i < barLength; i++) {         
+      Sleep(100);       
+      cout << ":";  
+   }
+   cout << "]" << endl << endl;  
+   return 0;
 }
