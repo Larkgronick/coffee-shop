@@ -202,11 +202,11 @@ void checkBalance(double price, string coffee)
       cupsAmount--;
       showProgressBar();
       cout << "Here is the best " << coffee << " in the City. Please, help yourself!" << endl;
-   //   std::cout << R"(
-   //      (   
-   //       )
-   //     c[]  
-   //     )" << '\n';
+//      std::cout << "( 
+//        (    
+//          ) 
+//        c[]  
+//        )" << '\n';
       while (true)
       {
          cout << "Press 0 if Customer has taken his cup of coffee" << endl; 
