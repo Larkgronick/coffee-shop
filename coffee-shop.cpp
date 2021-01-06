@@ -263,12 +263,7 @@ bool checkPin ()
 				break;
 			}
 		}
-	}
-	
-	if (isCorrect == false) {
-		cout << "PIN is wrong." << endl;
-	}
-	
+	}	
 	return isCorrect;
 }
 
@@ -327,32 +322,34 @@ double withdrawMoney(double currentBalance)
 
 void goToServicePart() 
 {
-	int userChoice = 0;
+	int serviceMenuChoice = 0;
 	string pinAttempt = "";
-	int pinAttemptsLeft;
+	int pinAttemptsLeft = PIN_ATTEMPTS;
 	bool isCorrectPin;
-	pinAttemptsLeft = PIN_ATTEMPTS;
 	
 	do 
 	{
 		pinAttemptsLeft--;
 		isCorrectPin = checkPin();
+		if (isCorrectPin == false) {
+			cout << "PIN is wrong. There are " << pinAttemptsLeft << " attempts left." << endl;  
+		}
 	} while (pinAttemptsLeft > 0 && isCorrectPin != true);
 	
 	if (isCorrectPin == true) {
 		system ("cls");
 		while (true) {
 			showServiceMenu();
-			userChoice = makeChoice();
-			if (userChoice == 1) {
+			serviceMenuChoice = makeChoice();
+			if (serviceMenuChoice == 1) {
 				cupsAmount = addCups(cupsAmount);
-			} else if (userChoice == 2) {
+			} else if (serviceMenuChoice == 2) {
 				totalBalance = withdrawMoney(totalBalance);
-			} else if (userChoice == 3) {
+			} else if (serviceMenuChoice == 3) {
 				system ("cls");
 				break;
 			} else {
-				cout << "Choose variants fron 1 to 3." << endl;
+				cout << "Choose variants from 1 to 3." << endl;
 			}
 		}
 	} else {
