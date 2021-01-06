@@ -2,7 +2,7 @@
 #include <windows.h>
 using namespace std;
 #define PIN_ATTEMPTS 3
-#define START_CUPS_AMOUNT 0
+#define START_CUPS_AMOUNT 7
 //define
 const int ESPRESSO_PRICE = 1;
 const double CAPPUCCINO_PRICE = 1.5;
@@ -12,8 +12,8 @@ const string PIN = "1234";
 
 // to main
 int cupsAmount = START_CUPS_AMOUNT; 
-double balance = 0;
-double totalBalance = 0;
+double balance = 0.0;
+double totalBalance = 0.0;
 
 
 int loadMenu();
@@ -31,7 +31,7 @@ string getPin();
 void showServiceMenu();
 int makeChoice();
 int addCups(int);
-double withdrawMoney(double);
+void withdrawMoney();
 void goToServicePart();
 
 
@@ -248,6 +248,7 @@ int showProgressBar()
    cout << "]" << endl << endl;  
    return 0;
 }
+
 bool checkPin ()
 {
 	string equalPin = PIN;
@@ -309,15 +310,13 @@ int addCups(int currentAmount)
 	return currentAmount + addingAmount;	
 }
 
-double withdrawMoney(double currentBalance)
+void withdrawMoney()
 {
 	system("cls");
-	cout << currentBalance << " BYN were given away" << endl;
+	cout << totalBalance << " BYN were given away." << endl;
 	
 	totalBalance = 0.0;
 	balance = 0.0;
-	
-	return totalBalance;
 }
 
 void goToServicePart() 
@@ -344,7 +343,7 @@ void goToServicePart()
 			if (serviceMenuChoice == 1) {
 				cupsAmount = addCups(cupsAmount);
 			} else if (serviceMenuChoice == 2) {
-				totalBalance = withdrawMoney(totalBalance);
+				withdrawMoney();
 			} else if (serviceMenuChoice == 3) {
 				system ("cls");
 				break;
@@ -353,7 +352,7 @@ void goToServicePart()
 			}
 		}
 	} else {
-		cout << "The machine is blocked" << endl;
+		cout << "The machine is blocked." << endl;
 		exit (1);
 	}
 	return;		
