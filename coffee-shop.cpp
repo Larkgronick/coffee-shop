@@ -1,8 +1,10 @@
 #include <iostream>
 #include <windows.h>
+#include <stdlib.h>
+
 using namespace std;
 #define PIN_ATTEMPTS 3
-#define START_CUPS_AMOUNT 0
+#define START_CUPS_AMOUNT 7
 //define
 const int ESPRESSO_PRICE = 1;
 const double CAPPUCCINO_PRICE = 1.5;
@@ -42,6 +44,7 @@ int main()
 
 int loadMenu()
 {
+   system ("CLS");
    int userChoice = 0;
  
    while (true)
@@ -86,6 +89,8 @@ bool checkCups(int cups)
 
 int showPaymentMenu()
 {
+   system ("CLS");
+
    int userChoice = 0;
 
     while (true)
@@ -132,6 +137,8 @@ int showPaymentMenu()
 
 int loadServiceOnly()
 {
+   system ("CLS");
+
    int userChoice = 0;
 
    while (true)
@@ -195,6 +202,8 @@ void insertPayment(){
 
 void checkBalance(double price, string coffee)
 {
+   system ("CLS");
+
    int userChoice = 0; 
    if (balance >= price)
    {
@@ -202,11 +211,11 @@ void checkBalance(double price, string coffee)
       cupsAmount--;
       showProgressBar();
       cout << "Here is the best " << coffee << " in the City. Please, help yourself!" << endl;
-   //   std::cout << R"(
-   //      (   
-   //       )
-   //     c[]  
-   //     )" << '\n';
+     std::cout << R"(
+        (   
+         )
+       c[]  
+       )" << '\n';
       while (true)
       {
          cout << "Press 0 if Customer has taken his cup of coffee" << endl; 
