@@ -33,6 +33,7 @@ int makeChoice();
 int addCups(int);
 void withdrawMoney();
 void goToServicePart();
+void addMoney(double price);
 
 
 int main()
@@ -93,29 +94,19 @@ void showPaymentMenu()
      switch (userChoice)
      {
      case 1:
-        totalBalance += 0.10;
-		  balance += 0.10;
-        loadMenu();
+        addMoney(0.10);
         break;
      case 2:
-        totalBalance += 0.20;
-		  balance += 0.20;
-        loadMenu();
+     	addMoney(0.20);
         break;
      case 3:
-        totalBalance += 0.50;
-		  balance += 0.50;
-        loadMenu();
+		addMoney(0.50);
         break;
      case 4:
-        totalBalance += 1;
-		  balance += 1;
-        loadMenu();
+		addMoney(1.0);
         break;
      case 5:
-     	  totalBalance += 2;
-        balance += 2;
-        loadMenu();
+     	addMoney(2.0);
         break;
      default:
         system ("CLS");
@@ -123,6 +114,13 @@ void showPaymentMenu()
         continue;
      }
    }
+}
+
+void addMoney(double price)
+{
+	totalBalance += price;
+	balance += price;
+	loadMenu();
 }
 
 void loadServiceOnly()
@@ -208,11 +206,9 @@ void checkBalance(double price, string coffee)
       cout << "Making your coffee..." << endl;
       showProgressBar();
       cout << "Here is the best " << coffee << " in the City." << endl; 
-//      std::cout << R"(
-//        (   
-//         )
-//       c[]  
-//       )" << '\n';
+      cout << " (" << endl;
+	  cout << "  )" << endl;
+	  cout << "c[]" << endl;   
       cout << "Please, help yourself!" << endl << endl;
       
       while (true)
@@ -331,7 +327,6 @@ void goToServicePart()
 {
    system("cls");
 	int serviceMenuChoice = 0;
-	string pinAttempt = "";
 	int pinAttemptsLeft = PIN_ATTEMPTS;
 	bool isCorrectPin;
 	
