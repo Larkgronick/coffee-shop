@@ -19,14 +19,4 @@ To see code open ```coffee-shop.cpp``` file.
 # About
 
 Developers:
-[Nikita Zhavoronkov](https://github.com/Larkgronick/)
-[Nikita Pihul](https://github.com/NikPihul/)
-
-
-
-
-
-
-
-
-
+[Nikita Zhavoronkov](https://github.com/Larkgronick/) | [Nikita Pihul](https://github.com/NikPihul/)
