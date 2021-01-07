@@ -197,11 +197,14 @@ void insertPayment(){
 void checkBalance(double price, string coffee)
 {
    system ("CLS");
+
    int userChoice = 0; 
+
    if (balance >= price)
    {
       balance -= price;
       cupsAmount--;
+
       cout << "Making your coffee..." << endl;
       showProgressBar();
       cout << "Here is the best " << coffee << " in the City." << endl; 
@@ -211,6 +214,7 @@ void checkBalance(double price, string coffee)
        c[]  
        )" << '\n';
       cout << "Please, help yourself!" << endl << endl;
+      
       while (true)
       {
          cout << "Press 0 if Customer has taken his cup of coffee" << endl << endl; 
