@@ -1,39 +1,37 @@
 #include <iostream>
 #include <windows.h>
 #include <stdlib.h>
-
+#include <iomanip>
+#include <string>
 using namespace std;
 #define PIN_ATTEMPTS 3
 #define START_CUPS_AMOUNT 7
-//define
+
 const int ESPRESSO_PRICE = 1;
 const double CAPPUCCINO_PRICE = 1.5;
 const double LATTE_PRICE = 1.5;
 const int MINIMAL_PAYMENT = 1;
+int cupsAmount = START_CUPS_AMOUNT; 
+double balance = 0.0;
+double totalBalance = 0.0;
 const string PIN = "1234";
 
-// to main
-int cupsAmount = START_CUPS_AMOUNT; 
-double balance = 0;
-double totalBalance = 0;
-
-
-int loadMenu();
-int loadServiceOnly();
+void loadMenu();
+void loadServiceOnly();
 void showMenuItems();
-bool checkCups(int);
 void insertPayment();
 void showCoinsVariants();
-int showPaymentMenu();
+void showPaymentMenu();
 void orderCoffee(double, string);
 void checkBalance(double);
-int showProgressBar();
+void showProgressBar();
+bool checkCups(int);
 bool checkPin();
 string getPin();
 void showServiceMenu();
 int makeChoice();
 int addCups(int);
-double withdrawMoney(double);
+void withdrawMoney();
 void goToServicePart();
 
 
@@ -42,17 +40,15 @@ int main()
    loadMenu();
 }
 
-int loadMenu()
+void loadMenu()
 {
    system ("CLS");
    int userChoice = 0;
  
    while (true)
    {
-     // to main
      showMenuItems();
-     cout << "Your choice? ";
-     cin >> userChoice;
+     userChoice = makeChoice();
      
      switch (userChoice)
      {
@@ -69,84 +65,78 @@ int loadMenu()
         orderCoffee(LATTE_PRICE, "latte");
         break;
      case 5: 
-		goToServicePart();
-		break;
+		  goToServicePart();
+		  break;
      default:
-      cout << "Input [1..5], please" << endl  << endl;
-      continue;
+        system ("CLS");
+        cout << "Input [1..5], please" << endl;
+        continue;
      }
- }
-     return 0;
    }
-
-
+}
 
 bool checkCups(int cups)
 {
    return (cups > 0);
- 
 }
 
-int showPaymentMenu()
+void showPaymentMenu()
 {
    system ("CLS");
-
    int userChoice = 0;
 
     while (true)
    {
-     
      showCoinsVariants();
-     cout << "Your choice? ";
-     cin >> userChoice;
+     userChoice = makeChoice();
      
      switch (userChoice)
      {
      case 1:
         totalBalance += 0.10;
-		balance += 0.10;
+		  balance += 0.10;
         loadMenu();
         break;
      case 2:
         totalBalance += 0.20;
-		balance += 0.20;
+		  balance += 0.20;
         loadMenu();
         break;
      case 3:
         totalBalance += 0.50;
-		balance += 0.50;
+		  balance += 0.50;
         loadMenu();
         break;
      case 4:
         totalBalance += 1;
-		balance += 1;
+		  balance += 1;
         loadMenu();
         break;
      case 5:
-     	totalBalance += 2;
+     	  totalBalance += 2;
         balance += 2;
         loadMenu();
         break;
      default:
-      cout << "Input [1..5], please" << endl  << endl;
-      continue;
+        system ("CLS");
+        cout << "Input [1..5], please" << endl;
+        continue;
      }
-     return 0;
    }
 }
 
-int loadServiceOnly()
+void loadServiceOnly()
 {
    system ("CLS");
-
    int userChoice = 0;
 
    while (true)
-   {
+   { 
       cout << "We are very sorry but there are no cups left" << endl;
+      cout << "---------------" << endl;
       cout << "5) Service" << endl;
-      cout << "Your choice? ";
-      cin >> userChoice;
+      cout << "---------------" << endl << endl;
+      userChoice = makeChoice();
       
       switch (userChoice)
       {
@@ -154,38 +144,42 @@ int loadServiceOnly()
         goToServicePart();
          break;
       default:
-         cout << "Please, select service menu" << endl  << endl;
+         system ("CLS");
+         cout << "Please, select service menu" << endl;
          continue;
       }
       if (cupsAmount != 0) {
       	break;
 	  }
    }
-   return 0;
 }
 
 
 void showMenuItems()
-{
-   cout << "Dear customer, make your choice: " << endl;
-   cout << "Balance: " << balance << " BYN" << endl;
-   cout << "1) Deposit money " << endl;
-   cout << "2) Espresso " << "("<< ESPRESSO_PRICE << ")" << endl;
-   cout << "3) Cappuccino " << "("<< CAPPUCCINO_PRICE << ")" << endl;
-   cout << "4) Latte " << "("<< LATTE_PRICE << ")" << endl;
-   cout << "-----------------" << endl;
+{  
+   cout << "Dear customer, make your choice: " << endl << endl;
+   cout << "Balance: "  << setw(13) << balance << " BYN" << endl;
+   cout << "---------------" << endl;
+   cout << "1) Deposit money | + $" << endl;
+   cout << "2) Espresso " << setw(7) << "| " << ESPRESSO_PRICE << setw(6) << " BYN" << endl;
+   cout << "3) Cappuccino " << setw(5) << "| " << CAPPUCCINO_PRICE << " BYN" << endl;
+   cout << "4) Latte " << setw(10) << "| " << LATTE_PRICE << " BYN" << endl;
+   cout << "---------------" << endl;
    cout << "5) Service menu" << endl << endl;
+ 
 }
 
 void showCoinsVariants()
 {
-   cout << "Please deposit coins" << endl;
+   cout << "Please deposit coins" << endl << endl;
    cout << "Pay attention that the coffee machine doesn't give change" << endl;
-   cout << "1) 10 coins" << endl;
-   cout << "2) 20 coins" << endl;
-   cout << "3) 50 coins" << endl;
-   cout << "4) 1 BYN" << endl;
-   cout << "5) 2 BYN" << endl << endl;
+   cout << "---------------" << endl;
+   cout << "1) 10  coins   |" << endl;
+   cout << "2) 20  coins   |" << endl;
+   cout << "3) 50  coins   |" << endl;
+   cout << "4)  1  BYN     |"  << endl;
+   cout << "5)  2  BYN     |"  << endl ;
+   cout << "---------------" << endl << endl;
 
 }
 
@@ -203,30 +197,32 @@ void insertPayment(){
 void checkBalance(double price, string coffee)
 {
    system ("CLS");
-
    int userChoice = 0; 
    if (balance >= price)
    {
       balance -= price;
       cupsAmount--;
+      cout << "Making your coffee..." << endl;
       showProgressBar();
-      cout << "Here is the best " << coffee << " in the City. Please, help yourself!" << endl;
-     std::cout << R"(
+      cout << "Here is the best " << coffee << " in the City." << endl; 
+      std::cout << R"(
         (   
          )
        c[]  
        )" << '\n';
+      cout << "Please, help yourself!" << endl << endl;
       while (true)
       {
-         cout << "Press 0 if Customer has taken his cup of coffee" << endl; 
-         cout << "Your choice? ";
-         cin >> userChoice;
+         cout << "Press 0 if Customer has taken his cup of coffee" << endl << endl; 
+         userChoice = makeChoice();
          switch (userChoice)
          {
          case 0:
             loadMenu();
             break;
          default:
+            system ("CLS");
+            cout << "Input [0] please" << endl;
             continue;
          }
       }
@@ -246,7 +242,7 @@ void orderCoffee(double price, string coffee)
    }
 }
 
-int showProgressBar()
+void showProgressBar()
 {
   int barLength = 20;
    cout << "[";     
@@ -255,8 +251,8 @@ int showProgressBar()
       cout << ":";  
    }
    cout << "]" << endl << endl;  
-   return 0;
 }
+
 bool checkPin ()
 {
 	string equalPin = PIN;
@@ -272,19 +268,13 @@ bool checkPin ()
 				break;
 			}
 		}
-	}
-	
-	if (isCorrect == false) {
-		cout << "PIN is wrong." << endl;
-	}
-	
+	}	
 	return isCorrect;
 }
 
 string getPin () 
 {
 	string pin;
-	
 	cout << "Please input PIN: ";
 	cin >> pin;
 	
@@ -293,13 +283,14 @@ string getPin ()
 
 void showServiceMenu () 
 {
-	//system("cls");
-	cout << "Balance is " << totalBalance << " BYN" << endl;
-	cout << "There are " << cupsAmount << " cups loaded" << endl;
+	cout << "Balance is " << totalBalance << " BYN" << endl ;
+	cout << "There are " << cupsAmount << " cups loaded" << endl << endl;
 	cout << "Choose the option:" << endl;
-	cout << "1 - Add cups" << endl;
-	cout << "2 - Withdrawal of proceeds" << endl;
-	cout << "3 - Back to main menu" << endl;
+   cout << "---------------" << endl;
+	cout << "1) Add cups" << endl;
+	cout << "2) Withdrawal of proceeds" << endl;
+	cout << "3) Back to main menu" << endl;
+   cout << "---------------" << endl << endl;
 }
 
 int makeChoice () 
@@ -323,49 +314,52 @@ int addCups(int currentAmount)
 	return currentAmount + addingAmount;	
 }
 
-double withdrawMoney(double currentBalance)
+void withdrawMoney()
 {
 	system("cls");
-	cout << currentBalance << " BYN were given away" << endl;
+	cout << totalBalance << " BYN were given away." << endl;
 	
 	totalBalance = 0.0;
 	balance = 0.0;
-	
-	return totalBalance;
 }
 
 void goToServicePart() 
 {
-	int userChoice = 0;
+   system("cls");
+	int serviceMenuChoice = 0;
 	string pinAttempt = "";
-	int pinAttemptsLeft;
+	int pinAttemptsLeft = PIN_ATTEMPTS;
 	bool isCorrectPin;
-	pinAttemptsLeft = PIN_ATTEMPTS;
 	
 	do 
 	{
 		pinAttemptsLeft--;
 		isCorrectPin = checkPin();
+		if (isCorrectPin == false) {
+         system("cls");
+			cout << "PIN is wrong. There are " << pinAttemptsLeft << " attempts left." << endl << endl;  
+		}
 	} while (pinAttemptsLeft > 0 && isCorrectPin != true);
 	
 	if (isCorrectPin == true) {
 		system ("cls");
 		while (true) {
 			showServiceMenu();
-			userChoice = makeChoice();
-			if (userChoice == 1) {
+			serviceMenuChoice = makeChoice();
+			if (serviceMenuChoice == 1) {
 				cupsAmount = addCups(cupsAmount);
-			} else if (userChoice == 2) {
-				totalBalance = withdrawMoney(totalBalance);
-			} else if (userChoice == 3) {
-				system ("cls");
+			} else if (serviceMenuChoice == 2) {
+				withdrawMoney();
+			} else if (serviceMenuChoice == 3) {	
+            system ("cls");
 				break;
 			} else {
-				cout << "Choose variants fron 1 to 3." << endl;
+            system ("cls");
+				cout << "Choose variants from 1 to 3." << endl;
 			}
 		}
 	} else {
-		cout << "The machine is blocked" << endl;
+		cout << "The machine is blocked." << endl;
 		exit (1);
 	}
 	return;		

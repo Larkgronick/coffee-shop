@@ -1,5 +1,1 @@
-     std::cout << R"(
-        (   
-         )
-       c[]  
-       )" << '\n';
+ system ("CLS");
