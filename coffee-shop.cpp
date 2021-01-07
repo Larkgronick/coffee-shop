@@ -6,6 +6,7 @@
 using namespace std;
 #define PIN_ATTEMPTS 3
 #define START_CUPS_AMOUNT 7
+#define PIN "1234"
 
 const int ESPRESSO_PRICE = 1;
 const double CAPPUCCINO_PRICE = 1.5;
@@ -14,7 +15,6 @@ const int MINIMAL_PAYMENT = 1;
 int cupsAmount = START_CUPS_AMOUNT; 
 double balance = 0.0;
 double totalBalance = 0.0;
-const string PIN = "1234";
 
 void loadMenu();
 void loadServiceOnly();
@@ -208,11 +208,11 @@ void checkBalance(double price, string coffee)
       cout << "Making your coffee..." << endl;
       showProgressBar();
       cout << "Here is the best " << coffee << " in the City." << endl; 
-      std::cout << R"(
-        (   
-         )
-       c[]  
-       )" << '\n';
+//      std::cout << R"(
+//        (   
+//         )
+//       c[]  
+//       )" << '\n';
       cout << "Please, help yourself!" << endl << endl;
       
       while (true)
